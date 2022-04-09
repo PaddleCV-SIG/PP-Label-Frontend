@@ -15,6 +15,9 @@
 }
 
 .shadow {
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
   height: 47.5rem;
   margin-top: 1.25rem;
   background-color: #fff;
@@ -25,15 +28,9 @@
   background: #fff;
 }
 
-.block_l {
-  float: left;
-  width: 40%;
-}
-
-.block_r {
-  float: left;
-  width: 60%;
-  // vertical-align: 'middle';
+.r {
+  display: flex;
+  align-self: center;
 }
 
 .goup {
@@ -45,4 +42,19 @@
   font-family: 'Microsoft YaHei';
   background-color: rgba(23, 39, 194, 0.3);
   border: 0.06rem dashed #1727c2;
+}
+
+.operation {
+  display: flex;
+  justify-content: right;
+}
+
+.btn {
+  width: 180px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.cancelBtn {
+  margin-left: 16px;
 }

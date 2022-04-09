@@ -1,10 +1,10 @@
-import { Col, Form, Space, Row, Alert } from 'antd';
+import { Col, Form, Space, Row, Alert, Input, Radio, Button } from 'antd';
 import Title from 'antd/lib/typography/Title';
 import React, { useState } from 'react';
 import styles from './index.less';
-import { Button } from 'antd';
 import PPSegCard from '../PPSegCard';
 import { useIntl } from 'umi';
+import classNames from 'classnames';
 
 export type _PPCardProps = {
   title?: string;
@@ -39,6 +39,7 @@ export type PPCardProps = {
 
 const PPSegMode: React.FC<PPCardProps> = (props) => {
   const [form] = Form.useForm();
+  const [form2] = Form.useForm();
   // 选择方向为-0，数据填写为-1
   const [step, setStep] = useState<0 | 1>(0);
   const [orientation, setOrientation] = useState<string>();
@@ -141,21 +142,97 @@ const PPSegMode: React.FC<PPCardProps> = (props) => {
     </_PPBlock>
   );
 
-  const renderForm = () => (
-    <_PPBlock title={orientation} style={{ height: 760, padding: '1.25rem 0' }}>
-      <Form form={form} layout="horizontal" size="large" style={{ marginTop: '5.69rem' }}></Form>
-    </_PPBlock>
-  );
+  const renderForm = () => {
+    const annotationOptions = [
+      { label: '像素级标注', value: '1' },
+      { label: '多边形级标注', value: '2' },
+    ];
+
+    return (
+      <_PPBlock title={orientation} style={{ padding: '1.25rem 0' }}>
+        <Form
+          form={form2}
+          colon={false}
+          labelAlign="right"
+          labelCol={{ span: 8 }}
+          size="large"
+          style={{ marginTop: '5.69rem', marginLeft: '5rem' }}
+        >
+          <Form.Item name="projectName" label="项目名称">
+            <Input placeholder="起一个酷酷的项目名称吧" style={{ width: 460 }} />
+          </Form.Item>
+
+          <Form.Item name="dataUrl" label="数据地址">
+            <Input placeholder="数据地址" style={{ width: 460 }} />
+          </Form.Item>
+
+          <Form.Item name="saveUrl" label="保存地址">
+            <Input placeholder="保存地址" style={{ width: 460 }} />
+          </Form.Item>
+
+          <Form.Item name="datasetDesc" label="数据集描述">
+            <Input.TextArea placeholder="数据集描述" style={{ width: 460, resize: 'none' }} />
+          </Form.Item>
+
+          <Form.Item name="annotationMode" label="标注模式">
+            <Radio.Group
+              options={annotationOptions}
+              defaultValue="1"
+              style={{ textAlign: 'left' }}
+            />
+          </Form.Item>
+
+          <div className={styles.operation}>
+            <Button
+              className={classNames({
+                [styles.btn]: true,
+                [styles.okBtn]: true,
+              })}
+              type="primary"
+            >
+              确认
+            </Button>
+
+            <Button
+              className={classNames({
+                [styles.btn]: true,
+                [styles.cancelBtn]: true,
+              })}
+            >
+              取消
+            </Button>
+          </div>
+        </Form>
+
+        <style>
+          {`
+            .ant-form-item-no-colon {
+              font-size: 16px;
+              color: #333;
+            }
+            
+            /* radio 对齐问题 */
+            .ant-form-item-control-input-content {
+              display: flex;
+            }
+
+            textarea.ant-input {
+              max-width: initial;
+            }
+          `}
+        </style>
+      </_PPBlock>
+    );
+  };
 
   return (
-    <div className={styles.shadow} style={props.style}>
-      <div id="left" className={styles.block_l}>
-        {step === 0 ? renderOrientation() : renderForm()}
-      </div>
-      <div id="right" className={styles.block_r}>
-        <_PPBlock style={{ height: 760, padding: '0.5rem 0' }}>
-          <img src={props.imgSrc} style={{ height: 698, width: 960 }} />
-        </_PPBlock>
+    <div className={styles.shadow} style={{ flex: 1 }}>
+      <div className={styles.l}>{step === 0 ? renderOrientation() : renderForm()}</div>
+
+      <div className={styles.r} id="right">
+        <div className="img-wrap">
+          <img src={props.imgSrc} style={{ height: 700 * 0.5, width: 960 * 0.5 }} />
+        </div>
       </div>
     </div>
   );
