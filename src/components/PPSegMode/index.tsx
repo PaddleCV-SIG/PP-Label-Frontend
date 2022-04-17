@@ -49,8 +49,8 @@ const PPSegMode: React.FC<PPCardProps> = (props) => {
   const medical = useIntl().formatMessage({ id: 'component.PPSegMode.medical' });
   const remoteSensing = useIntl().formatMessage({ id: 'component.PPSegMode.remoteSensing' });
   const changeDetection = useIntl().formatMessage({ id: 'component.PPSegMode.changeDetection' });
-  const ok = useIntl().formatMessage({ id: 'component.PPSegMode.ok' });
-  const cancel = useIntl().formatMessage({ id: 'component.PPCreater.cancel' });
+  // const ok = useIntl().formatMessage({ id: 'component.PPSegMode.ok' });
+  // const cancel = useIntl().formatMessage({ id: 'component.PPCreater.cancel' });
 
   /**
    * 配置化页面
@@ -129,7 +129,7 @@ const PPSegMode: React.FC<PPCardProps> = (props) => {
           </Space>
         </Form.Item>
         {/* ps：这两个按钮可以不要 */}
-        <Form.Item
+        {/* <Form.Item
           wrapperCol={{
             span: 16,
             offset: 6,
@@ -142,7 +142,7 @@ const PPSegMode: React.FC<PPCardProps> = (props) => {
           <Button htmlType="button" style={{ height: '2.5rem', width: '48%' }} block>
             {cancel}
           </Button>
-        </Form.Item>
+        </Form.Item> */}
       </Form>
     </_PPBlock>
   );
