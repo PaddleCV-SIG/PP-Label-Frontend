@@ -143,10 +143,10 @@ const PPSegMode: React.FC<PPCardProps> = (props) => {
   );
 
   const renderForm = () => {
-    const annotationOptions = [
-      { label: '像素级标注', value: '1' },
-      { label: '多边形级标注', value: '2' },
-    ];
+    // const annotationOptions = [
+    //   { label: '像素级标注', value: '1' },
+    //   { label: '多边形级标注', value: '2' },
+    // ];
 
     return (
       <_PPBlock title={orientation} style={{ padding: '1.25rem 0' }}>
@@ -157,6 +157,13 @@ const PPSegMode: React.FC<PPCardProps> = (props) => {
           labelCol={{ span: 8 }}
           size="large"
           style={{ marginTop: '5.69rem', marginLeft: '5rem' }}
+          initialValues={{
+            projectName: '',
+            dataUrl: '',
+            saveUrl: '',
+            datasetDesc: '',
+            annotationMode: 1,
+          }}
         >
           <Form.Item name="projectName" label="项目名称">
             <Input placeholder="起一个酷酷的项目名称吧" style={{ width: 460 }} />
@@ -175,11 +182,15 @@ const PPSegMode: React.FC<PPCardProps> = (props) => {
           </Form.Item>
 
           <Form.Item name="annotationMode" label="标注模式">
-            <Radio.Group
+            <Radio.Group>
+              <Radio value={1}>像素级标注</Radio>
+              <Radio value={2}>多边形级标注</Radio>
+            </Radio.Group>
+            {/* <Radio.Group
               options={annotationOptions}
-              defaultValue="1"
+              // defaultValue="1"
               style={{ textAlign: 'left' }}
-            />
+            /> */}
           </Form.Item>
 
           <div className={styles.operation}>
@@ -198,6 +209,10 @@ const PPSegMode: React.FC<PPCardProps> = (props) => {
                 [styles.btn]: true,
                 [styles.cancelBtn]: true,
               })}
+              onClick={() => {
+                setStep(0);
+                form2.resetFields();
+              }}
             >
               取消
             </Button>
