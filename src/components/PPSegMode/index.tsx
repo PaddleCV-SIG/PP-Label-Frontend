@@ -83,6 +83,11 @@ const PPSegMode: React.FC<PPCardProps> = (props) => {
     ],
   };
 
+  // handler
+  const handleForm2Finish = (values: any) => {
+    console.log(values);
+  };
+
   const renderOrientation = () => (
     <_PPBlock title={props.title} style={{ height: 760, padding: '1.25rem 0' }}>
       <Form form={form} layout="horizontal" size="large" style={{ marginTop: '5.69rem' }}>
@@ -164,21 +169,44 @@ const PPSegMode: React.FC<PPCardProps> = (props) => {
             datasetDesc: '',
             annotationMode: 1,
           }}
+          onFinish={handleForm2Finish}
         >
-          <Form.Item name="projectName" label="项目名称">
+          <Form.Item
+            name="projectName"
+            label="项目名称"
+            rules={[
+              { required: true, message: '这是一个必填项哦~' },
+              { type: 'string', max: 256, message: '项目名称长度限制在256字符串以内' },
+            ]}
+          >
             <Input placeholder="起一个酷酷的项目名称吧" style={{ width: 460 }} />
           </Form.Item>
 
-          <Form.Item name="dataUrl" label="数据地址">
-            <Input placeholder="数据地址" style={{ width: 460 }} />
+          <Form.Item
+            name="dataUrl"
+            label="数据地址"
+            rules={[{ required: true, message: '这是一个必填项哦~' }]}
+          >
+            <Input placeholder="数据地址由 / 组合而成" style={{ width: 460 }} />
           </Form.Item>
 
-          <Form.Item name="saveUrl" label="保存地址">
-            <Input placeholder="保存地址" style={{ width: 460 }} />
+          <Form.Item
+            name="saveUrl"
+            label="保存地址"
+            rules={[{ required: true, message: '这是一个必填项哦~' }]}
+          >
+            <Input placeholder="保存地址由 / 组合而成" style={{ width: 460 }} />
           </Form.Item>
 
-          <Form.Item name="datasetDesc" label="数据集描述">
-            <Input.TextArea placeholder="数据集描述" style={{ width: 460, resize: 'none' }} />
+          <Form.Item
+            name="datasetDesc"
+            label="数据集描述"
+            rules={[{ required: true, message: '这是一个必填项哦~' }]}
+          >
+            <Input.TextArea
+              placeholder="这个数据集里面有什么内容，哪些数值需要额外关注"
+              style={{ width: 460, resize: 'none' }}
+            />
           </Form.Item>
 
           <Form.Item name="annotationMode" label="标注模式">
@@ -200,6 +228,7 @@ const PPSegMode: React.FC<PPCardProps> = (props) => {
                 [styles.okBtn]: true,
               })}
               type="primary"
+              onClick={form2.submit}
             >
               确认
             </Button>
@@ -233,6 +262,11 @@ const PPSegMode: React.FC<PPCardProps> = (props) => {
 
             textarea.ant-input {
               max-width: initial;
+            }
+
+            /* 表单验证红字 */
+            .ant-form-item-explain {
+              text-align: left;
             }
           `}
         </style>
